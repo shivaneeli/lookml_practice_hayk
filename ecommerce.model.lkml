@@ -19,6 +19,27 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 #   }
 # }
 
+
+
+explore: order_items {
+  join: inventory_items {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${inventory_items.id}=${order_items.inventory_item_id} ;;
+  }
+
+  join:  products{
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${products.id}=${inventory_items.product_id} ;;
+  }
+  }
+
 explore: users {}
 
-explore: order_items {}
+explore: events {}
+
+explore: etl_jobs {}
+
+
+
